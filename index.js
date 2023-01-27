@@ -5,7 +5,7 @@ const TelegramBot = require("node-telegram-bot-api");
 const OpenAi = require("./utils/openAi");
 const User = require("./utils/addUsers");
 
-const token = process.env.TOKEN;
+const token = process.env.TOKEN,WEBHOOK=process.env.WEBHOOK_URL,PORT = process.env.PORT;
 
 const bot = new TelegramBot(token, { polling: true });
 
@@ -34,3 +34,6 @@ bot.on("message", async (msg) => {
     bot.sendMessage(msg.chat.id, "Sorry!!");
   }
 });
+
+bot.setWebhook(WEBHOOK);
+bot.startWebhook('/' + token, null, PORT)
